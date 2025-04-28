@@ -1,0 +1,13 @@
+{
+    "name": "SmartPx - Paseos con IA",
+    "short_name": "SmartPx",
+    "description": "Plataforma de paseos caninos inteligentes con tecnología IA",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F7FFF7",
+    "theme_color": "#FF6B6B",
+    "orientation": "portrait-primary",
+    "icons": [
+      
+    ]
+  }

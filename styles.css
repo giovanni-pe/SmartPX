@@ -1,14 +1,14 @@
 :root {
-    --primary-color: #FF6B6B;
-    --primary-dark: #E05555;
-    --secondary-color: #4ECDC4;
-    --dark-color: #292F36;
+    --primary-color: rgb(228, 168, 83);
+    --primary-dark: gold;
+    --secondary-color: #243344;
+    --dark-color: #243344;
     --light-color: #F7FFF7;
     --gray-color: #6C757D;
     --light-gray: #F8F9FA;
     --success-color: #28A745;
     --warning-color: #FFC107;
-    --danger-color: #DC3545;
+    --danger-color: rgb(228, 168, 83);
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Montserrat', sans-serif;
     --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -186,6 +186,7 @@ span[class^="highlight"]:after, span[class*=" highlight"]:after {
 .nav-links a:hover {
     color: var(--primary-color);
 }
+
 
 .nav-links a:after {
     content: '';
@@ -1403,5 +1404,34 @@ input:checked + .slider:before {
     
     .testimonial-card {
         min-width: 280px;
+    }
+}
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        background: white;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none;
     }
 }
