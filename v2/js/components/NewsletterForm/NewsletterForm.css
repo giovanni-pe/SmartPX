@@ -1,0 +1,28 @@
+.footer-newsletter form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-newsletter input {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--font-primary);
+}
+
+.footer-newsletter button {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .footer-newsletter form {
+    flex-direction: row;
+  }
+  
+  .footer-newsletter button {
+    width: auto;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,266 @@
+
+.pricing {
+    background-color: white;
+    padding: 80px 0;
+}
+
+.pricing h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+/* Selector de precios */
+.pricing-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.discount-badge {
+    background-color: var(--success-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* Tarjetas de precios */
+.pricing-cards {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.pricing-card {
+    flex: 1;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    padding: 30px;
+    transition: var(--transition);
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--box-shadow);
+}
+
+/* Efecto de focus al hacer hover en una tarjeta */
+.pricing-card.fade {
+    opacity: 0.6;
+}
+
+/* Tarjeta popular */
+.pricing-card.popular {
+    border: 2px solid var(--primary-color);
+    background-color: white;
+    z-index: 2;
+    transform: scale(1.05);
+}
+
+.pricing-card.popular:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Encabezado de precio */
+.pricing-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pricing-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    height: 60px; /* Altura fija para evitar saltos */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.price span {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--gray-color);
+}
+
+.monthly-price, .annual-price {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Lista de características */
+.features-list {
+    margin-bottom: 30px;
+}
+
+.features-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.4;
+}
+
+.features-list i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+    margin-top: 2px;
+}
+
+.features-list .fa-check {
+    color: var(--success-color);
+}
+
+.features-list .fa-times {
+    color: var(--gray-color);
+    opacity: 0.7;
+}
+
+/* Plan personalizado */
+.custom-plan {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.custom-plan p {
+    margin-bottom: 20px;
+    color: var(--gray-color);
+}
+
+/* Animaciones */
+@keyframes highlight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(228, 168, 83, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(228, 168, 83, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(228, 168, 83, 0);
+    }
+}
+
+.pricing-card.popular {
+    animation: highlight 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .pricing-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .pricing-card {
+        width: 100%;
+        max-width: 500px;
+    }
+    
+    .pricing-card.popular {
+        transform: scale(1);
+        order: -1; /* Mover al principio en móvil */
+    }
+    
+    .pricing-card.popular:hover {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-switch {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pricing {
+        padding: 60px 0;
+    }
+    
+    .pricing h2 {
+        font-size: 2rem;
+    }
+}
