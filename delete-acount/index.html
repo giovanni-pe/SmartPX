@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Cuenta - SmartpX App</title>
+    <meta name="description" content="Solicita la eliminación completa de tu cuenta y datos personales de SmartpX App">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, rgb(33, 37, 41) 0%, #243344 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            max-width: 650px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .header h1 {
+            color: rgb(33, 37, 41);
+            margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FFD700, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(45deg, #fff3cd, #ffeaa7);
+            border: 2px solid #D4AF37;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .warning-box h3 {
+            color: #996515;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box ul {
+            color: #996515;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+        
+        .warning-box li {
+            margin-bottom: 8px;
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .info-section h3 {
+            color: rgb(33, 37, 41);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .info-section ol {
+            margin-left: 20px;
+            color: #243344;
+        }
+        
+        .info-section li {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .form-section {
+            background: #fafbfc;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: rgb(33, 37, 41);
+            font-size: 16px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #243344, rgb(33, 37, 41));
+            color: #FFD700;
+            border: 2px solid #D4AF37;
+            padding: 18px 35px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+            background: linear-gradient(45deg, #FFD700, #D4AF37);
+            color: rgb(33, 37, 41);
+            border-color: #FFD700;
+        }
+        
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            border-color: #bdc3c7;
+            color: #6c757d;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #FFD700;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            display: none;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .message.success {
+            background: linear-gradient(45deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 2px solid #D4AF37;
+        }
+        
+        .message.error {
+            background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 2px solid #996515;
+        }
+        
+        .data-types {
+            background: #e8f4f8;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .data-types h3 {
+            color: #0c5460;
+            margin-bottom: 15px;
+        }
+        
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .data-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .data-item strong {
+            color: #17a2b8;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 26px;
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #D4AF37;
+            color: #243344;
+        }
+        
+        .contact-info {
+            background: linear-gradient(45deg, #fff3cd, #ffeaa7);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #D4AF37;
+            color: #996515;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐾 Eliminar Mi Cuenta</h1>
+            <p class="subtitle">Solicita la eliminación completa de tu cuenta y todos tus datos personales</p>
+        </div>
+
+        <div class="warning-box">
+            <h3>⚠️ Importante: Esta acción es permanente e irreversible</h3>
+            <ul>
+                <li>Se eliminarán todos tus datos personales permanentemente</li>
+                <li>Se cancelarán todas las reservas de paseo activas</li>
+                <li>No podrás recuperar tu cuenta, perfil o historial</li>
+                <li>El proceso de eliminación puede tomar hasta 48 horas</li>
+                <li>Recibirás confirmación por email cuando esté completado</li>
+            </ul>
+        </div>
+
+        <div class="data-types">
+            <h3>📋 Tipos de datos que se eliminarán:</h3>
+            <div class="data-grid">
+                <div class="data-item">
+                    <strong>Información Personal</strong>
+                    Nombre, email, teléfono
+                </div>
+                <div class="data-item">
+                    <strong>Perfil de Usuario</strong>
+                    Foto, biografía, preferencias
+                </div>
+                <div class="data-item">
+                    <strong>Historial de Paseos</strong>
+                    Reservas pasadas y futuras
+                </div>
+                <div class="data-item">
+                    <strong>Datos de Mascotas</strong>
+                    Información de tus perros
+                </div>
+                <div class="data-item">
+                    <strong>Comunicaciones</strong>
+                    Mensajes y notificaciones
+                </div>
+                <div class="data-item">
+                    <strong>Datos de Pago</strong>
+                    Historial de transacciones
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>🔄 Proceso de eliminación:</h3>
+            <ol>
+                <li><strong>Completa el formulario</strong> con tu email registrado en la app</li>
+                <li><strong>Opcional:</strong> Comparte el motivo para ayudarnos a mejorar</li>
+                <li><strong>Confirmación:</strong> Recibirás un email de confirmación inmediata</li>
+                <li><strong>Procesamiento:</strong> Nuestro equipo eliminará todos tus datos en 24-48 horas</li>
+                <li><strong>Finalización:</strong> Te notificaremos cuando la eliminación esté completa</li>
+            </ol>
+        </div>
+
+        <div class="form-section">
+            <form id="deletionForm">
+                <div class="form-group">
+                    <label for="email">📧 Email de la cuenta a eliminar *</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="tu-email@ejemplo.com"
+                           autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">💭 Motivo de eliminación (opcional)</label>
+                    <textarea id="reason" name="reason" 
+                              placeholder="Ayúdanos a mejorar contándonos por qué eliminas tu cuenta... (opcional)"></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    🗑️ Solicitar Eliminación Completa
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p><strong>Procesando tu solicitud...</strong></p>
+                <p>Por favor espera mientras procesamos tu solicitud de eliminación.</p>
+            </div>
+
+            <div class="message" id="message"></div>
+        </div>
+
+        <div class="footer">
+            <div class="contact-info">
+                <strong>¿Necesitas ayuda?</strong><br>
+                Si tienes problemas con este proceso, contacta nuestro soporte:<br>
+                📧 smartpetsxplore@gmail.com | 📱 +51 910 731 863
+            </div>
+            <p style="margin-top: 15px;">
+                <small>SmartpX App - Eliminación de Cuenta | © 2025</small>
+            </p>
+        </div>
+    </div>
+
+    <script type="module">
+        // ==========================================
+        // CONFIGURACIÓN DE LA API
+        // ==========================================
+        const API_CONFIG = {
+            baseUrl: 'https://apiv2.smartpx.org/api', // 🔥 CAMBIAR POR TU URL DE PRODUCCIÓN
+            endpoints: {
+                requestDeletion: '/request-account-deletion',
+                getAccountData: '/get-account-data'
+            }
+        };
+        
+        // ==========================================
+        // ELEMENTOS DOM
+        // ==========================================
+        const elements = {
+            form: document.getElementById('deletionForm'),
+            submitBtn: document.getElementById('submitBtn'),
+            loading: document.getElementById('loading'),
+            message: document.getElementById('message'),
+            emailInput: document.getElementById('email'),
+            reasonInput: document.getElementById('reason')
+        };
+        
+        // ==========================================
+        // FUNCIONES DE UTILIDAD
+        // ==========================================
+        
+        // Mostrar mensajes al usuario
+        function showMessage(text, type = 'success') {
+            elements.message.innerHTML = `
+                <div style="font-size: 18px; margin-bottom: 10px;">
+                    ${type === 'success' ? '✅' : '❌'}
+                </div>
+                ${text}
+            `;
+            elements.message.className = `message ${type}`;
+            elements.message.style.display = 'block';
+            
+            // Scroll hacia el mensaje
+            elements.message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Auto-ocultar mensajes de éxito después de 8 segundos
+            if (type === 'success') {
+                setTimeout(() => {
+                    elements.message.style.display = 'none';
+                }, 8000);
+            }
+        }
+        
+        // Alternar estado de carga
+        function toggleLoading(show) {
+            elements.loading.style.display = show ? 'block' : 'none';
+            elements.form.style.display = show ? 'none' : 'block';
+            elements.submitBtn.disabled = show;
+        }
+        
+        // Validar email formato
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Hacer petición HTTP
+        async function makeRequest(endpoint, data) {
+            const response = await fetch(`${API_CONFIG.baseUrl}${endpoint}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(data),
+                credentials: 'omit' // No incluir cookies
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            return await response.json();
+        }
+        
+        // ==========================================
+        // MANEJO DEL FORMULARIO
+        // ==========================================
+        
+        elements.form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(elements.form);
+            const email = formData.get('email')?.trim();
+            const reason = formData.get('reason')?.trim();
+            
+            // Validaciones del lado cliente
+            if (!email) {
+                showMessage('❌ Por favor, introduce tu email.', 'error');
+                elements.emailInput.focus();
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showMessage('❌ Por favor, introduce un email válido.', 'error');
+                elements.emailInput.focus();
+                return;
+            }
+            
+            try {
+                toggleLoading(true);
+                
+                // Hacer la petición de eliminación
+                const response = await makeRequest(API_CONFIG.endpoints.requestDeletion, {
+                    email: email,
+                    reason: reason || null
+                });
+                
+                if (response.success) {
+                    showMessage(`
+                        <strong style="font-size: 20px;">¡Solicitud Enviada Correctamente!</strong><br><br>
+                        ${response.message}<br><br>
+                        <strong>Próximos pasos:</strong><br>
+                        • Recibirás un email de confirmación en los próximos minutos<br>
+                        • La eliminación se completará en 24-48 horas<br>
+                        • Te notificaremos cuando termine el proceso<br><br>
+                        <em>Puedes cerrar esta página ahora.</em>
+                    `, 'success');
+                    
+                    elements.form.reset(); // Limpiar formulario
+                } else {
+                    showMessage(`❌ ${response.message || 'Error al procesar la solicitud'}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(`
+                    ❌ <strong>Error de Conectividad</strong><br><br>
+                    No se pudo conectar con nuestros servidores.<br>
+                    Por favor:<br>
+                    • Verifica tu conexión a internet<br>
+                    • Inténtalo de nuevo en unos minutos<br>
+                    • Si el problema persiste, contacta soporte
+                `, 'error');
+            } finally {
+                toggleLoading(false);
+            }
+        });
+        
+        // ==========================================
+        // VALIDACIÓN EN TIEMPO REAL
+        // ==========================================
+        
+        elements.emailInput.addEventListener('input', (e) => {
+            const email = e.target.value.trim();
+            
+            if (email && !isValidEmail(email)) {
+                e.target.style.borderColor = '#996515';
+                e.target.style.boxShadow = '0 0 0 3px rgba(153, 101, 21, 0.1)';
+            } else {
+                e.target.style.borderColor = '#e1e5e9';
+                e.target.style.boxShadow = 'none';
+            }
+        });
+        
+        // ==========================================
+        // INICIALIZACIÓN
+        // ==========================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🐾 Página de eliminación de cuenta cargada');
+            console.log('🔗 API URL:', API_CONFIG.baseUrl);
+            
+            // Focus automático en el campo email
+            elements.emailInput.focus();
+        });
+        
+        // Prevenir envío accidental con Enter en textarea
+        elements.reasonInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                elements.form.dispatchEvent(new Event('submit'));
+            }
+        });
+        
+    </script>
+</body>
+</html>
